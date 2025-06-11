@@ -104,7 +104,10 @@ btnAllClear.addEventListener("click", () => {
 });
 
 btnClear.addEventListener("click", () => {
-  if (!calcData.operator) {
+  if (isNaN(calcData.firstNum)) {
+    calcData.firstNum = "0";
+    updateDisplay();
+  } else if (!calcData.operator) {
     calcData.firstNum = calcData.firstNum.slice(0, -1);
     userInput = calcData.firstNum; // Userinput ke firstNum diye update dite hobe. Naile ager userInput eitate store hoye thake. Jemon first e 45 type korlam, tokhon to userInput e 45 roye gelo, then delete korle oita to thaika jaitese ar but display te 4 dekhacche. Tokhon jodi notun value input dei, taile oi 45 thekei abar shuru hoy karon UserInput still 45.
   } else if (!calcData.secondNum) {
@@ -120,7 +123,11 @@ btnClear.addEventListener("click", () => {
 
 btnDecimal.addEventListener("click", () => {
   // Shudhu firstNum e . na thaklei hobe na, borong amaderke check korte hobe je amra kon state asi, orthat amra firstNum asi naki secondNum e.
-  if (!calcData.firstNum || calcData.firstNum === "0") {
+  if (calcData.firstNum && !calcData.operator && !userInput) {
+    userInput = "0.";
+    calcData.firstNum = userInput;
+    updateDisplay();
+  } else if (!calcData.firstNum || calcData.firstNum === "0") {
     userInput = "0.";
     calcData.firstNum = userInput;
     updateDisplay();
